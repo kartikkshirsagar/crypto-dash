@@ -6,6 +6,7 @@ import TableCell from "@material-ui/core/TableCell";
 import TableContainer from "@material-ui/core/TableContainer";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
+import Graph from "./graph"
 
 const CoinData = (props) => {
   const [displayGraph, setdisplayGraph] = useState(false);
@@ -16,7 +17,7 @@ const CoinData = (props) => {
     if (displayGraph === true) {
       return (
         <TableRow>
-          <TableCell><h2>Graph here</h2></TableCell>
+          <TableCell colSpan={3}><div style={{height:500}}><Graph /></div></TableCell>
         </TableRow>
       );
     }
