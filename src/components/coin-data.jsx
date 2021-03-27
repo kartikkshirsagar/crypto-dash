@@ -10,14 +10,14 @@ import Graph from "./graph"
 
 const CoinData = (props) => {
   const [displayGraph, setdisplayGraph] = useState(false);
-  console.log(props);
-  console.log(props.name);
+//   console.log(props);
+//   console.log(props.name);
 
   const renderGraph = () => {
     if (displayGraph === true) {
       return (
         <TableRow>
-          <TableCell colSpan={3}><div style={{height:500}}><Graph /></div></TableCell>
+          <TableCell colSpan={3}><div style={{height:500}}><Graph id={props.id}/></div></TableCell>
         </TableRow>
       );
     }

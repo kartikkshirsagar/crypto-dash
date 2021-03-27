@@ -6,281 +6,77 @@ import { ResponsiveLine } from "@nivo/line";
 // no chart will be rendered.
 // website examples showcase many properties,
 // you'll often use just a few of them.
+import React, { useState,useEffect } from 'react';
 
-const dataset =[
-    {
-      "id": "japan",
-      "color": "hsl(342, 70%, 50%)",
-      "data": [
-        {
-          "x": "plane",
-          "y": 60
-        },
-        {
-          "x": "helicopter",
-          "y": 279
-        },
-        {
-          "x": "boat",
-          "y": 223
-        },
-        {
-          "x": "train",
-          "y": 295
-        },
-        {
-          "x": "subway",
-          "y": 277
-        },
-        {
-          "x": "bus",
-          "y": 223
-        },
-        {
-          "x": "car",
-          "y": 45
-        },
-        {
-          "x": "moto",
-          "y": 273
-        },
-        {
-          "x": "bicycle",
-          "y": 120
-        },
-        {
-          "x": "horse",
-          "y": 23
-        },
-        {
-          "x": "skateboard",
-          "y": 222
-        },
-        {
-          "x": "others",
-          "y": 67
-        }
-      ]
-    },
-    {
-      "id": "france",
-      "color": "hsl(80, 70%, 50%)",
-      "data": [
-        {
-          "x": "plane",
-          "y": 261
-        },
-        {
-          "x": "helicopter",
-          "y": 227
-        },
-        {
-          "x": "boat",
-          "y": 5
-        },
-        {
-          "x": "train",
-          "y": 216
-        },
-        {
-          "x": "subway",
-          "y": 251
-        },
-        {
-          "x": "bus",
-          "y": 175
-        },
-        {
-          "x": "car",
-          "y": 298
-        },
-        {
-          "x": "moto",
-          "y": 172
-        },
-        {
-          "x": "bicycle",
-          "y": 297
-        },
-        {
-          "x": "horse",
-          "y": 296
-        },
-        {
-          "x": "skateboard",
-          "y": 171
-        },
-        {
-          "x": "others",
-          "y": 42
-        }
-      ]
-    },
-    {
-      "id": "us",
-      "color": "hsl(220, 70%, 50%)",
-      "data": [
-        {
-          "x": "plane",
-          "y": 124
-        },
-        {
-          "x": "helicopter",
-          "y": 118
-        },
-        {
-          "x": "boat",
-          "y": 120
-        },
-        {
-          "x": "train",
-          "y": 91
-        },
-        {
-          "x": "subway",
-          "y": 132
-        },
-        {
-          "x": "bus",
-          "y": 145
-        },
-        {
-          "x": "car",
-          "y": 64
-        },
-        {
-          "x": "moto",
-          "y": 106
-        },
-        {
-          "x": "bicycle",
-          "y": 224
-        },
-        {
-          "x": "horse",
-          "y": 283
-        },
-        {
-          "x": "skateboard",
-          "y": 184
-        },
-        {
-          "x": "others",
-          "y": 173
-        }
-      ]
-    },
-    {
-      "id": "germany",
-      "color": "hsl(305, 70%, 50%)",
-      "data": [
-        {
-          "x": "plane",
-          "y": 202
-        },
-        {
-          "x": "helicopter",
-          "y": 4
-        },
-        {
-          "x": "boat",
-          "y": 160
-        },
-        {
-          "x": "train",
-          "y": 238
-        },
-        {
-          "x": "subway",
-          "y": 256
-        },
-        {
-          "x": "bus",
-          "y": 99
-        },
-        {
-          "x": "car",
-          "y": 225
-        },
-        {
-          "x": "moto",
-          "y": 101
-        },
-        {
-          "x": "bicycle",
-          "y": 26
-        },
-        {
-          "x": "horse",
-          "y": 286
-        },
-        {
-          "x": "skateboard",
-          "y": 55
-        },
-        {
-          "x": "others",
-          "y": 26
-        }
-      ]
-    },
-    {
-      "id": "norway",
-      "color": "hsl(127, 70%, 50%)",
-      "data": [
-        {
-          "x": "plane",
-          "y": 194
-        },
-        {
-          "x": "helicopter",
-          "y": 129
-        },
-        {
-          "x": "boat",
-          "y": 42
-        },
-        {
-          "x": "train",
-          "y": 106
-        },
-        {
-          "x": "subway",
-          "y": 157
-        },
-        {
-          "x": "bus",
-          "y": 263
-        },
-        {
-          "x": "car",
-          "y": 97
-        },
-        {
-          "x": "moto",
-          "y": 197
-        },
-        {
-          "x": "bicycle",
-          "y": 102
-        },
-        {
-          "x": "horse",
-          "y": 276
-        },
-        {
-          "x": "skateboard",
-          "y": 237
-        },
-        {
-          "x": "others",
-          "y": 219
-        }
-      ]
-    }
-  ];
 
-const MyResponsiveLine = ( {dataset} ) => (
+
+
+
+
+function generateURL(id,date){
+    const timeWiseUrl ="https://api.nomics.com/v1/currencies/sparkline?key=7986da46df6f3c84a80abcb10f1f7c73&ids="+ id+"&start=2020-04-14T00%3A00%3A00Z&end=" + date;
+
+    return timeWiseUrl;
+}
+
+  const dataset = [
+  {
+    id: "japan",
+    color: "hsl(342, 70%, 50%)",
+    data: [
+      {
+        x: "plane",
+        y: 60,
+      },
+      {
+        x: "helicopter",
+        y: 279,
+      },
+      {
+        x: "boat",
+        y: 223,
+      },
+      {
+        x: "train",
+        y: 295,
+      },
+      {
+        x: "subway",
+        y: 277,
+      },
+      {
+        x: "bus",
+        y: 223,
+      },
+      {
+        x: "car",
+        y: 45,
+      },
+      {
+        x: "moto",
+        y: 273,
+      },
+      {
+        x: "bicycle",
+        y: 120,
+      },
+      {
+        x: "horse",
+        y: 23,
+      },
+      {
+        x: "skateboard",
+        y: 222,
+      },
+      {
+        x: "others",
+        y: 67,
+      },
+    ],
+  },
+];
+
+const MyResponsiveLine = ({ dataset }) => (
   <ResponsiveLine
     data={dataset}
     margin={{ top: 50, right: 110, bottom: 50, left: 60 }}
@@ -350,8 +146,26 @@ const MyResponsiveLine = ( {dataset} ) => (
   />
 );
 
-const Graph = () => {
-  return <MyResponsiveLine dataset = {dataset}/>;
+const Graph = (props) => {
+
+    const [timeData,setTimeData] =useState({
+        coin:[]
+    }) 
+
+    const APIcall = async () => {
+        const date = new Date().toISOString()
+
+        const response = await fetch(generateURL(props.id,date))
+        .then(response=>response.json())
+        .then(jsondata=> setTimeData({coin:jsondata}));
+        
+    }
+    useEffect(async ()=>{
+        await APIcall();
+        console.log(timeData);
+    },[])
+
+    return <MyResponsiveLine dataset={dataset} />;
 };
 
 export default Graph;
