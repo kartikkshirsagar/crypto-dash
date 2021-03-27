@@ -29,11 +29,11 @@ const CoinData = (props) => {
         <Table aria-label="simple table">
           <TableBody>
             <TableRow key={props.id}>
-              <TableCell component="th" scope="row">
+              <TableCell width="33%">
                 {props.name}
               </TableCell>
-              <TableCell align="right">{props.price}</TableCell>
-              <TableCell align="right">
+              <TableCell align="center" width="33%">{props.price}</TableCell>
+              <TableCell align="right" width="33%">
                 <button
                   onClick={() =>
                     setdisplayGraph(displayGraph === true ? false : true)
