@@ -19,68 +19,13 @@ function generateURL(id,date){
     return timeWiseUrl;
 }
 
-  const dataset = [
-  {
-    id: "japan",
-    color: "hsl(342, 70%, 50%)",
-    data: [
-      {
-        x: "plane",
-        y: 60,
-      },
-      {
-        x: "helicopter",
-        y: 279,
-      },
-      {
-        x: "boat",
-        y: 223,
-      },
-      {
-        x: "train",
-        y: 295,
-      },
-      {
-        x: "subway",
-        y: 277,
-      },
-      {
-        x: "bus",
-        y: 223,
-      },
-      {
-        x: "car",
-        y: 45,
-      },
-      {
-        x: "moto",
-        y: 273,
-      },
-      {
-        x: "bicycle",
-        y: 120,
-      },
-      {
-        x: "horse",
-        y: 23,
-      },
-      {
-        x: "skateboard",
-        y: 222,
-      },
-      {
-        x: "others",
-        y: 67,
-      },
-    ],
-  },
-];
+ 
 
 const MyResponsiveLine = ({ dataset }) => (
   <ResponsiveLine
     data={dataset}
     margin={{ top: 50, right: 110, bottom: 50, left: 60 }}
-    xScale={{type: "point"}}
+    xScale={{type: "time" ,format:"%Y-%m-%d"}}
     yScale={{
       type: "linear",
       min: "auto",
@@ -89,7 +34,7 @@ const MyResponsiveLine = ({ dataset }) => (
       reverse: false,
     }}
     xFormat="time:%Y-%m-%d"
-    yFormat=" <-.2f"
+    yFormat=".2"
     axisTop={null}
     axisRight={null}
     axisBottom={{
@@ -149,9 +94,7 @@ const MyResponsiveLine = ({ dataset }) => (
 
 const Graph = (props) => {
 
-    const [timeData,setTimeData] =useState({
-        coin:[]
-    }) 
+    const [timeData,setTimeData] =useState([]) 
     
     const APIcall = async () => {
         const date = new Date().toISOString()
@@ -163,29 +106,30 @@ const Graph = (props) => {
                 color: "hsl(342, 70%, 50%)",
                 data : jsondata[0].timestamps.map(
                     (timestamp,index) => {
-                        const _date = new Date(timestamp);
-                        const _day = _date.getDay();
-                        const _month = _date.getMonth();
+                        let _date = new Date(timestamp);
+                        //gets yyyy-mm-dd
+                        const _day = String("0" + _date.getDate()).slice(-2);
+                        const _month = String("0" + (_date.getMonth()+1)).slice(-2);
                         const _year = _date.getFullYear();
+                        
                         return {
-                            // x:_year+'-'+_month+'-'+_day,
-                            x:timestamp,
+                            // x:_date,
+                            x:_year+"-"+_month+"-"+_day,
                             y:jsondata[0].prices[index]
                         }
                     }
                 )
             }];
             console.log(requiredData)
-            setTimeData({coin:requiredData})
+            setTimeData(requiredData)
         });
     }
     
     useEffect(()=>{
         APIcall();
-        console.log(timeData);
     },[])
 
-    return <MyResponsiveLine dataset={timeData.coin} />;
+    return <MyResponsiveLine dataset={timeData} />;
 };
 
 export default Graph;
