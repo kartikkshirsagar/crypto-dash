@@ -80,7 +80,7 @@ const MyResponsiveLine = ({ dataset }) => (
   <ResponsiveLine
     data={dataset}
     margin={{ top: 50, right: 110, bottom: 50, left: 60 }}
-    xScale={{ type: "point" }}
+    xScale={{type: "point"}}
     yScale={{
       type: "linear",
       min: "auto",
@@ -88,7 +88,8 @@ const MyResponsiveLine = ({ dataset }) => (
       stacked: true,
       reverse: false,
     }}
-    yFormat=" >-.2f"
+    xFormat="time:%Y-%m-%d"
+    yFormat=" <-.2f"
     axisTop={null}
     axisRight={null}
     axisBottom={{
@@ -151,21 +152,40 @@ const Graph = (props) => {
     const [timeData,setTimeData] =useState({
         coin:[]
     }) 
-
+    
     const APIcall = async () => {
         const date = new Date().toISOString()
-
         const response = await fetch(generateURL(props.id,date))
         .then(response=>response.json())
-        .then(jsondata=> setTimeData({coin:jsondata}));
-        
+        .then(jsondata=> {
+            let requiredData = [{
+                id: jsondata[0]["currency"],
+                color: "hsl(342, 70%, 50%)",
+                data : jsondata[0].timestamps.map(
+                    (timestamp,index) => {
+                        const _date = new Date(timestamp);
+                        const _day = _date.getDay();
+                        const _month = _date.getMonth();
+                        const _year = _date.getFullYear();
+                        return {
+                            // x:_year+'-'+_month+'-'+_day,
+                            x:timestamp,
+                            y:jsondata[0].prices[index]
+                        }
+                    }
+                )
+            }];
+            console.log(requiredData)
+            setTimeData({coin:requiredData})
+        });
     }
-    useEffect(async ()=>{
-        await APIcall();
+    
+    useEffect(()=>{
+        APIcall();
         console.log(timeData);
     },[])
 
-    return <MyResponsiveLine dataset={dataset} />;
+    return <MyResponsiveLine dataset={timeData.coin} />;
 };
 
 export default Graph;
