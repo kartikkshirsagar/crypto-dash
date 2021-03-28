@@ -14,7 +14,7 @@ import React, { useState,useEffect } from 'react';
 
 
 function generateURL(id,date){
-    const timeWiseUrl ="https://api.nomics.com/v1/currencies/sparkline?key=7986da46df6f3c84a80abcb10f1f7c73&ids="+ id+"&start=2020-04-14T00%3A00%3A00Z&end=" + date;
+    const timeWiseUrl ="https://api.nomics.com/v1/currencies/sparkline?key=7986da46df6f3c84a80abcb10f1f7c73&convert=INR&ids="+ id+"&start=2020-04-14T00%3A00%3A00Z&end=" + date;
 
     return timeWiseUrl;
 }
@@ -33,9 +33,10 @@ const MyResponsiveLine = ({dataset}) => (
       max: "auto",
       stacked: true,
       reverse: false,
+      format:" >-$s",
     }}
     xFormat="time:%Y-%m-%d"
-    yFormat="<.2f"
+    yFormat=" >-s"
     axisTop={null}
     axisRight={null}
     axisBottom={{
@@ -43,7 +44,7 @@ const MyResponsiveLine = ({dataset}) => (
       tickSize: 5,
       tickPadding: 5,
       tickRotation: 0,
-      legend: "transportation",
+      legend: "Time",
       legendOffset: 36,
       legendPosition: "middle",
       format:"%Y-%m-%d"
@@ -54,8 +55,8 @@ const MyResponsiveLine = ({dataset}) => (
       tickSize: 5,
       tickPadding: 5,
       tickRotation: 0,
-      legend: "count",
-      legendOffset: -40,
+      legend: "Price",
+      legendOffset: -55,
       legendPosition: "middle",
     }}
     enableGridX={false}
@@ -95,6 +96,10 @@ const MyResponsiveLine = ({dataset}) => (
   />
 );
 
+
+function numberWithCommas(x) { //to return comma seperated price
+  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
 const Graph = (props) => {
 
     const [timeData,setTimeData] = useState([]) 
