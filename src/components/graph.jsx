@@ -33,7 +33,7 @@ const MyResponsiveLine = ({dataset}) => (
       max: "auto",
       stacked: true,
       reverse: false,
-      format:" >-$s",
+      format:" >-s",
     }}
     xFormat="time:%Y-%m-%d"
     yFormat=" >-s"
@@ -97,9 +97,7 @@ const MyResponsiveLine = ({dataset}) => (
 );
 
 
-function numberWithCommas(x) { //to return comma seperated price
-  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-}
+
 const Graph = (props) => {
 
     const [timeData,setTimeData] = useState([]) 
@@ -123,7 +121,7 @@ const Graph = (props) => {
                         return {
                             x:(timestamp+"").slice(0,10),
                             // x:_year+"-"+_month+"-"+_day,
-                            y:jsondata[0].prices[index]
+                            y:Math.round(jsondata[0].prices[index])
                         }
                     }
                 )

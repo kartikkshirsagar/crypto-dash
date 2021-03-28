@@ -24,7 +24,7 @@ const CoinList = () => {
     return ( 
         <React.Fragment>
             {jsonData.coins.map(item=>{
-                return <CoinData key={item.id} name={item.name} id={item.id} price={item.price}/>
+                return <CoinData key={item.id} item={item}/>
             } )}
         </React.Fragment>
     );
