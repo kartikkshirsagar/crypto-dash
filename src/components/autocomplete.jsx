@@ -1,10 +1,42 @@
 /* eslint-disable no-use-before-define */
-import React from 'react';
+import React,{ useState,useRef} from 'react';
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
-import currencies from './currencies'
+import currencies from './currencies';
+import CoinData from './coin-data';
+import coinNames from '../currency'
+
+var query_part1 ="https://api.nomics.com/v1/currencies/ticker?key=7986da46df6f3c84a80abcb10f1f7c73&ids=" ;
+var query_part2="&interval=1d&convert=EUR";
 
 export default function FreeSolo() {
+  const [jsonData,setjsonData] = useState(null);
+  const [query,setQuery] =useState('bitcoin');
+
+  const valueRef = useRef('') //creating a refernce for TextField Component
+
+  const QueryAPIcall = async (url) => {
+    const response = await fetch(url);
+    
+    const data = await response.json();
+
+    if(data!=null && data[0]!=null){
+    console.log(response);
+    console.log(data);
+    setjsonData(data[0]);
+    console.log(data[0].id);
+    }
+
+  };
+
+  const runAPI= ()=>{
+    console.log(valueRef.current.value.toLowerCase());
+    console.log(coinNames[valueRef.current.value.toLowerCase()]);
+    var url=query_part1+coinNames[valueRef.current.value.toLowerCase()]+query_part2;
+    QueryAPIcall(url);
+  };
+
+
   return (
     <div style={{ width: 300 }}>
       <Autocomplete
@@ -19,9 +51,13 @@ export default function FreeSolo() {
             margin="normal"
             variant="outlined"
             InputProps={{ ...params.InputProps, type: 'search' }}
+            inputRef={valueRef} 
           />
         )}
       />
+      <input type='button' value='Search' onClick={()=>{runAPI()}}/>
+      { jsonData!=null &&
+            <CoinData key={jsonData.id} item={jsonData}/>}
     </div>
   );
 }
