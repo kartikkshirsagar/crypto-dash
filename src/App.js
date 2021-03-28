@@ -4,6 +4,7 @@ import CoinSearch from './components/coin-search';
 import './App.css';
 import Graph from './components/graph';
 import Appbar from './components/app-bar';
+import UseAutocomplete from './components/autocomplete';
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
         <CoinList/>
 
         <CoinSearch/>
+        <UseAutocomplete/>
 
     </div>
   );
