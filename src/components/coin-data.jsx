@@ -28,6 +28,8 @@ const CoinData = (props) => {
     }
     return null;
   };
+  var assert = require('assert');
+  assert(props.item["1d"]!==undefined);
   const increase_1d = ((props.item["1d"].price_change / props.item.price) * 100).toFixed(2);
   let color;
   if (increase_1d > 0) {
