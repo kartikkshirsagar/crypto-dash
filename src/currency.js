@@ -1,4 +1,4 @@
-const coinNames:{
+const coinNames={
   '404': '404',
   '520': '520',
   '999': '999',
@@ -12571,4 +12571,6 @@ const coinNames:{
   zozocoin: 'ZZC',
   'zzz.finance': 'ZZZ',
   'zzz.finance v2': 'ZZZV2'
-}
+};
+
+export default coinNames;
