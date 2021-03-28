@@ -21,11 +21,12 @@ function generateURL(id,date){
 
  
 
-const MyResponsiveLine = ({ dataset }) => (
+const MyResponsiveLine = ({dataset}) => (
   <ResponsiveLine
     data={dataset}
     margin={{ top: 50, right: 110, bottom: 50, left: 60 }}
     xScale={{type: "time" ,format:"%Y-%m-%d"}}
+    // xScale={{type:"point"}}
     yScale={{
       type: "linear",
       min: "auto",
@@ -34,7 +35,7 @@ const MyResponsiveLine = ({ dataset }) => (
       reverse: false,
     }}
     xFormat="time:%Y-%m-%d"
-    yFormat=".2"
+    yFormat="<.2f"
     axisTop={null}
     axisRight={null}
     axisBottom={{
@@ -45,6 +46,8 @@ const MyResponsiveLine = ({ dataset }) => (
       legend: "transportation",
       legendOffset: 36,
       legendPosition: "middle",
+      format:"%Y-%m-%d"
+
     }}
     axisLeft={{
       orient: "left",
@@ -94,11 +97,11 @@ const MyResponsiveLine = ({ dataset }) => (
 
 const Graph = (props) => {
 
-    const [timeData,setTimeData] =useState([]) 
+    const [timeData,setTimeData] = useState([]) 
     
     const APIcall = async () => {
         const date = new Date().toISOString()
-        const response = await fetch(generateURL(props.id,date))
+        const _response = await fetch(generateURL(props.id,date))
         .then(response=>response.json())
         .then(jsondata=> {
             let requiredData = [{
@@ -106,22 +109,22 @@ const Graph = (props) => {
                 color: "hsl(342, 70%, 50%)",
                 data : jsondata[0].timestamps.map(
                     (timestamp,index) => {
-                        let _date = new Date(timestamp);
+                        // let _date = new Date(timestamp);
                         //gets yyyy-mm-dd
-                        const _day = String("0" + _date.getDate()).slice(-2);
-                        const _month = String("0" + (_date.getMonth()+1)).slice(-2);
-                        const _year = _date.getFullYear();
+                        // const _day = String("0" + _date.getDate()).slice(-2);
+                        // const _month = String("0" + (_date.getMonth()+1)).slice(-2);
+                        // const _year = _date.getFullYear();
                         
                         return {
-                            // x:_date,
-                            x:_year+"-"+_month+"-"+_day,
+                            x:(timestamp+"").slice(0,10),
+                            // x:_year+"-"+_month+"-"+_day,
                             y:jsondata[0].prices[index]
                         }
                     }
                 )
             }];
-            console.log(requiredData)
-            setTimeData(requiredData)
+            console.log(requiredData);
+            setTimeData(requiredData);
         });
     }
     
