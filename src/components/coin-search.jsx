@@ -34,10 +34,10 @@ const CoinSearch = () => {
     
     useEffect(()=>{
         //APIcall();
-        var Q=getCoinData(query);
-        if(Q!=null){
-            QueryAPIcall(Q);
-        }
+        //var Q=getCoinData(query);
+        //if(Q!=null){
+        //    QueryAPIcall(Q);
+        //}
     },[query]);
 
     const APIcall = async () => {
@@ -58,14 +58,20 @@ const CoinSearch = () => {
             const error = (data && data.message) || response.statusText;
             return Promise.reject(error);
         }
-        console.log(response)
+        console.log(response);
+        console.log(data);
         setjsonData({coins:data});
+    };
+
+    const runAPI= ()=>{
+        var url=query_part1+query+query_part2;
+        QueryAPIcall(url);
     };
 
     return ( 
         <React.Fragment>
             <input type='text' value={query} onChange={event=>setQuery(event.target.value)}></input>
-
+            <input type='button' onClick={()=>{runAPI()}}/>
             {jsonData.coins.map((item,index)=>{
                 if(item.name===query){
                     console.log(item);
