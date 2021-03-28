@@ -6,42 +6,57 @@ import TableCell from "@material-ui/core/TableCell";
 import TableContainer from "@material-ui/core/TableContainer";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
-import Graph from "./graph"
+import Graph from "./graph";
+import Button from "@material-ui/core/Button";
 
 const CoinData = (props) => {
   const [displayGraph, setdisplayGraph] = useState(false);
-//   console.log(props);
-//   console.log(props.name);
+  //   console.log(props);
+  //   console.log(props.name);
 
   const renderGraph = () => {
     if (displayGraph === true) {
       return (
         <TableRow>
-          <TableCell colSpan={3}><div style={{height:500}}><Graph id={props.id}/></div></TableCell>
+          <TableCell colSpan={5}>
+            <div style={{ height: 500 }}>
+              <Graph id={props.item.id} />
+            </div>
+          </TableCell>
         </TableRow>
       );
     }
     return null;
   };
-
+  const increase_1d = ((props.item["1d"].price_change / props.item.price) * 100).toFixed(2);
+  let color;
+  if (increase_1d > 0) {
+    color = { color: 'green' };
+  } else {
+    color = {color:'red'};
+  }
   return (
     <React.Fragment>
       <TableContainer component={Paper}>
         <Table aria-label="simple table">
           <TableBody>
-            <TableRow key={props.id}>
-              <TableCell width="33%">
-                {props.name}
+            <TableRow key={props.item.id}>
+              <TableCell width="25%">{props.item.name}</TableCell>
+              <TableCell align="center" width="25%">
+                {props.item.price}
               </TableCell>
-              <TableCell align="center" width="33%">{props.price}</TableCell>
-              <TableCell align="right" width="33%">
-                <button
+              <TableCell align="center" width="25%" className="percent-cell">
+                {increase_1d}%
+              </TableCell>
+              <TableCell align="right" width="25%">
+                <Button
+                  variant="outlined"
                   onClick={() =>
                     setdisplayGraph(displayGraph === true ? false : true)
                   }
                 >
                   Display Graph
-                </button>
+                </Button>
               </TableCell>
             </TableRow>
             {renderGraph()}
