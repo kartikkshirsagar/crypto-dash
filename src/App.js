@@ -5,15 +5,15 @@ import './App.css';
 import Graph from './components/graph';
 import Appbar from './components/app-bar';
 import UseAutocomplete from './components/autocomplete';
+import Main from './components/main';
+
 
 function App() {
+  
+  
   return (
     <div className="App">
-        <Appbar />
-        <CoinList/>
-
-        {/*<CoinSearch/> */}
-        <UseAutocomplete/>
+        <Main/>
 
     </div>
   );
