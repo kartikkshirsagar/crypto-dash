@@ -2,9 +2,9 @@ import React, { useState,useEffect } from 'react';
 import CoinData from './coin-data';
 import coinNames from '../currency';
 
-const apiURL="https://api.nomics.com/v1/currencies/ticker?key=7986da46df6f3c84a80abcb10f1f7c73&interval=1d,30d&convert=EUR&per-page=100&page=1";
+const apiURL="https://api.nomics.com/v1/currencies/ticker?key=7986da46df6f3c84a80abcb10f1f7c73&interval=1d,30d&convert=INR&per-page=100&page=1";
 var query_part1 ="https://api.nomics.com/v1/currencies/ticker?key=7986da46df6f3c84a80abcb10f1f7c73&ids=" ;
-var query_part2="&interval=1d&convert=EUR";
+var query_part2="&interval=1d&convert=INR";
 
 const CoinSearch = () => {
     const [jsonData,setjsonData] = useState(null);
