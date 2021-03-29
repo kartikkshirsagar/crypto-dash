@@ -51,7 +51,7 @@ const CoinData = (props) => {
               <TableCell width='20%'><img src={props.item.logo_url} alt='Logo' className='coin-logo' /></TableCell>
               <TableCell align="center" width='20%'>
                 Rs.{props.item.price>1000 && (props.item.price/1000).toFixed(3)+'K' }
-                {props.item.price<1000 && props.item.price}
+                {props.item.price<1000 && props.item.price.toFixed(3)}
               </TableCell>
               
               <TableCell align="center" className="percent-cell" style={color} width='20%'>
