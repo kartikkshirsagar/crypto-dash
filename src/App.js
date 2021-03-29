@@ -12,7 +12,7 @@ function App() {
         <Appbar />
         <CoinList/>
 
-        <CoinSearch/>
+        {/*<CoinSearch/> */}
         <UseAutocomplete/>
 
     </div>

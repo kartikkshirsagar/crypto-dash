@@ -30,10 +30,11 @@ const CoinData = (props) => {
   };
   var assert = require('assert');
   assert(props.item["1d"]!==undefined);
+  //Change assert to error handling,display null or something
   const increase_1d = ((props.item["1d"].price_change / props.item.price) * 100).toFixed(2);
   let color;
   if (increase_1d > 0) {
-    color = { color: 'green' };
+    color = { color:'#00e08e' };
   } else {
     color = {color:'red'};
   }
@@ -42,15 +43,22 @@ const CoinData = (props) => {
       <TableContainer component={Paper}>
         <Table aria-label="simple table">
           <TableBody>
-            <TableRow key={props.item.id}>
-              <TableCell width="25%">{props.item.name}</TableCell>
-              <TableCell align="center" width="25%">
-                {props.item.price}
+            <TableRow key={props.item.id} hover='True' onClick={() =>
+                    setdisplayGraph(displayGraph === true ? false : true)
+                  }
+                  >
+              <TableCell width='20%'>{props.item.name}</TableCell>
+              <TableCell width='20%'><img src={props.item.logo_url} alt='Logo' className='coin-logo' /></TableCell>
+              <TableCell align="center" width='20%'>
+                Rs.{props.item.price>1000 && (props.item.price/1000).toFixed(3)+'K' }
+                {props.item.price<1000 && props.item.price}
               </TableCell>
-              <TableCell align="center" width="25%" className="percent-cell">
+              
+              <TableCell align="center" className="percent-cell" style={color} width='20%'>
                 {increase_1d}%
               </TableCell>
-              <TableCell align="right" width="25%">
+              {/* 
+              <TableCell align="right" width='20%'>
                 <Button
                   variant="outlined"
                   onClick={() =>
@@ -60,6 +68,7 @@ const CoinData = (props) => {
                   Display Graph
                 </Button>
               </TableCell>
+              */}
             </TableRow>
             {renderGraph()}
           </TableBody>
