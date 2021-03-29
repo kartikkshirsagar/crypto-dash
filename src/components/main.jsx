@@ -3,7 +3,9 @@ import Appbar from './app-bar';
 import CoinData from './coin-data';
 import UseAutocomplete from './autocomplete';
 import CoinList from './coin-list';
-import RowHeader from './row_header'
+import RowHeader from './row_header';
+import './main.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 export default function Main() {
@@ -13,15 +15,17 @@ export default function Main() {
 
     return (
         <div>
-            <Appbar />
-            <form className="form-group">
-            <label for="cars">Choose currency:</label>
-            <select className="form-select ml-2 mt-2 " name="cars" id="cars" onChange={(event)=>{setCurrency(event.target.value)}}>
+            <Appbar >
+                <div className='nav-choice mt-4 mb-2'>
+            <label for="currency" >Choose currency : </label>
+
+            <select className="form-select ml-2" name="currency" id="currency" onChange={(event)=>{setCurrency(event.target.value)}}>
             <option value="INR">INR</option>
             <option value="USD">USD</option>
             <option value="EUR">EUR</option>
-            </select>
-            </form>
+            </select> 
+            </div>
+            </Appbar>
             <UseAutocomplete currency={currency}/>
             <h2>Some popular currencies:</h2>
             <RowHeader/>
