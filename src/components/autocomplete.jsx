@@ -7,7 +7,7 @@ import CoinData from './coin-data';
 import coinNames from '../currency'
 
 var query_part1 ="https://api.nomics.com/v1/currencies/ticker?key=7986da46df6f3c84a80abcb10f1f7c73&ids=" ;
-var query_part2="&interval=1d&convert=EUR";
+var query_part2="&interval=1d&convert=INR";
 
 export default function FreeSolo() {
   const [jsonData,setjsonData] = useState(null);
