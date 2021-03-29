@@ -29,6 +29,9 @@ const CoinData = (props) => {
     return null;
   };
   var assert = require('assert');
+  if(props.item['1d']===undefined){
+    return <h1>No data found</h1>;
+  }
   assert(props.item["1d"]!==undefined);
   //Change assert to error handling,display null or something
   const increase_1d = ((props.item["1d"].price_change / props.item.price) * 100).toFixed(2);

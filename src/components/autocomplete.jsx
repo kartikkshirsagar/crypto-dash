@@ -38,7 +38,7 @@ export default function FreeSolo() {
 
 
   return (
-    <div style={{ width: 300 }}>
+    <div >
       <Autocomplete
         freeSolo
         id="free-solo-2-demo"
