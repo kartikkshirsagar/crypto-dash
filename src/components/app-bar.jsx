@@ -5,7 +5,6 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import IconButton from "@material-ui/core/IconButton";
 
-
 const useStyles = makeStyles((theme) => ({
     root: {
       flexGrow: 1,
@@ -29,7 +28,7 @@ const Appbar = () => {
         >
         </IconButton>
         <Typography variant="h6" color="inherit">
-          Crypto
+          CryptoDashboard
         </Typography>
       </Toolbar>
     </AppBar>
