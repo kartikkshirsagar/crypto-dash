@@ -14,13 +14,14 @@ export default function Main() {
     return (
         <div>
             <Appbar />
+            <form className="form-group">
             <label for="cars">Choose currency:</label>
-
-            <select name="cars" id="cars" onChange={(event)=>{setCurrency(event.target.value)}}>
+            <select className="form-select ml-2 mt-2 " name="cars" id="cars" onChange={(event)=>{setCurrency(event.target.value)}}>
             <option value="INR">INR</option>
             <option value="USD">USD</option>
             <option value="EUR">EUR</option>
-            </select> 
+            </select>
+            </form>
             <UseAutocomplete currency={currency}/>
             <h2>Some popular currencies:</h2>
             <RowHeader/>
