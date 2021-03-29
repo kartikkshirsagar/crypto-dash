@@ -5,6 +5,8 @@ import Autocomplete from '@material-ui/lab/Autocomplete';
 import currencies from './currencies';
 import CoinData from './coin-data';
 import coinNames from '../currency';
+import "bootstrap/dist/css/bootstrap.min.css";
+
 
 
 var query_part1 ="https://api.nomics.com/v1/currencies/ticker?key=7986da46df6f3c84a80abcb10f1f7c73&ids=" ;
@@ -58,6 +60,7 @@ export default function FreeSolo() {
         )}
       />
       <input type='button' value='Search' onClick={()=>{runAPI()}}/>
+      <div className='mb-3'></div>
       { jsonData!=null &&
             <CoinData key={jsonData.id} item={jsonData}/>}
     </div>
