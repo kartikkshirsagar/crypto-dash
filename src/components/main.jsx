@@ -15,8 +15,8 @@ export default function Main() {
 
     return (
         <div>
-            <Appbar >
-                <div className='nav-choice mt-4 mb-2'>
+            <Appbar>CryptoDashBoard
+                <div className='nav-choice mr-3'>
             <label for="currency" >Choose currency : </label>
 
             <select className="form-select ml-2" name="currency" id="currency" onChange={(event)=>{setCurrency(event.target.value)}}>
