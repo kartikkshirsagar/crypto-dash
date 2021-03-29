@@ -1,12 +1,15 @@
 import React, { useState,useEffect } from 'react';
 import CoinData from './coin-data';
 
-const apiURL="https://api.nomics.com/v1/currencies/ticker?key=7986da46df6f3c84a80abcb10f1f7c73&interval=1d&convert="
-const url2="&per-page=5&page=1";
+//const apiURL="https://api.nomics.com/v1/currencies/ticker?key=7986da46df6f3c84a80abcb10f1f7c73&interval=1d&convert="
+//const url2="&per-page=5&page=1";
 
 
 
 
+const apiURL =
+  "https://api.nomics.com/v1/currencies/ticker?key=7986da46df6f3c84a80abcb10f1f7c73&interval=1d&convert="
+const url2="&sort=rank&per-page=20&page=1";
 
 const CoinList = (props) => {
     const [jsonData,setjsonData] = useState({coins:[]});

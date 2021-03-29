@@ -3,6 +3,7 @@ import Appbar from './app-bar';
 import CoinData from './coin-data';
 import UseAutocomplete from './autocomplete';
 import CoinList from './coin-list';
+import RowHeader from './row_header'
 
 
 export default function Main() {
@@ -20,12 +21,13 @@ export default function Main() {
             <option value="USD">USD</option>
             <option value="EUR">EUR</option>
             </select> 
-
+            <UseAutocomplete currency={currency}/>
             <h2>Some popular currencies:</h2>
+            <RowHeader/>
             <CoinList currency={currency}/>
 
             {/*<CoinSearch/> */}
-            <UseAutocomplete currency={currency}/>
+            
         </div>
     )
 }
