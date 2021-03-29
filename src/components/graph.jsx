@@ -42,8 +42,8 @@ const MyResponsiveLine = ({dataset}) => (
     axisBottom={{
       orient: "bottom",
       tickSize: 5,
-      tickPadding: 5,
-      tickRotation: 0,
+      tickPadding: 0,
+      tickRotation: 30,
       legend: "Time",
       legendOffset: 36,
       legendPosition: "middle",

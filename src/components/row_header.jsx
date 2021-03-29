@@ -30,14 +30,18 @@ const RowHeader = () => {
         <Table aria-label="customized table">
           <TableHead>
             <TableRow>
-              <StyledTableCell width="25%">Name</StyledTableCell>
-              <StyledTableCell align="left" width="25%">
+              <StyledTableCell width="16%">Name</StyledTableCell>
+              <StyledTableCell width="16%">Symbol</StyledTableCell>
+              <StyledTableCell align="left" width="16%">
                 LOGO
               </StyledTableCell>
-              <StyledTableCell align="center" width="25%">
+              <StyledTableCell align="left" width="16%">
+                Circulating Supply
+              </StyledTableCell>
+              <StyledTableCell align="center" width="16%">
                 Price
               </StyledTableCell>
-              <StyledTableCell align="center" width="25%">
+              <StyledTableCell align="center" width="16%">
                 24H change
               </StyledTableCell>
             </TableRow>
