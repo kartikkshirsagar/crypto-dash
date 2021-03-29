@@ -42,7 +42,8 @@ export default function FreeSolo(props) {
 
   useEffect(()=>{
     if(valueRef.current.value!='')
-    {runAPI();
+    {
+      runAPI();
     }
   },[props.currency]);
 

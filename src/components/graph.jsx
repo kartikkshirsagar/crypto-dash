@@ -13,8 +13,8 @@ import React, { useState,useEffect } from 'react';
 
 
 
-function generateURL(id,date){
-    const timeWiseUrl ="https://api.nomics.com/v1/currencies/sparkline?key=7986da46df6f3c84a80abcb10f1f7c73&convert=INR&ids="+ id+"&start=2020-04-14T00%3A00%3A00Z&end=" + date;
+function generateURL(id,date,currency){
+    const timeWiseUrl ="https://api.nomics.com/v1/currencies/sparkline?key=7986da46df6f3c84a80abcb10f1f7c73&convert="+currency+"&ids="+ id+"&start=2020-04-14T00%3A00%3A00Z&end=" + date;
 
     return timeWiseUrl;
 }
@@ -104,7 +104,7 @@ const Graph = (props) => {
     
     const APIcall = async () => {
         const date = new Date().toISOString()
-        const _response = await fetch(generateURL(props.id,date))
+        const _response = await fetch(generateURL(props.id,date,props.currency))
         .then(response=>response.json())
         .then(jsondata=> {
             let requiredData = [{
@@ -133,7 +133,7 @@ const Graph = (props) => {
     
     useEffect(()=>{
         APIcall();
-    },[])
+    },[props.currency])
 
     return <MyResponsiveLine dataset={timeData} />;
 };

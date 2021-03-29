@@ -25,7 +25,7 @@ const CoinData = (props) => {
         <TableRow>
           <TableCell colSpan={6}>
             <div style={{ height: 450 }}>
-              <Graph id={props.item.id} />
+              <Graph id={props.item.id} currency={props.currency} />
             </div>
           </TableCell>
         </TableRow>
