@@ -55,7 +55,7 @@ export default function FreeSolo(props) {
         renderInput={(params) => (
           <TextField
             {...params}
-            label="Search input"
+            label="Enter a cryptocurrency"
             margin="normal"
             variant="outlined"
             InputProps={{ ...params.InputProps, type: 'search' }}

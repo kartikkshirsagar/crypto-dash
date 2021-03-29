@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
   }));
 
 
-const Appbar = () => {
+const Appbar = (props) => {
     const classes = useStyles();
   return (
     <AppBar position="static">
@@ -28,7 +28,7 @@ const Appbar = () => {
         >
         </IconButton>
         <Typography variant="h6" color="inherit">
-          CryptoDashboard
+            {props.children}
         </Typography>
       </Toolbar>
     </AppBar>
