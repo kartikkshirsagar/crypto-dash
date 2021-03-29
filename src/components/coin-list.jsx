@@ -1,7 +1,8 @@
 import React, { useState,useEffect } from 'react';
 import CoinData from './coin-data';
 
-const apiURL="https://api.nomics.com/v1/currencies/ticker?key=7986da46df6f3c84a80abcb10f1f7c73&ids=BTC,ETH,XRP&interval=1d,30d&convert=";
+const apiURL="https://api.nomics.com/v1/currencies/ticker?key=7986da46df6f3c84a80abcb10f1f7c73&interval=1d&convert="
+const url2="&per-page=10&page=1";
 
 
 
@@ -16,7 +17,7 @@ const CoinList = (props) => {
     },[props.currency]);
 
     const APIcall = async () => {
-        const response = await fetch(apiURL+props.currency);
+        const response = await fetch(apiURL+props.currency+url2);
         const jsonFormat = await response.json();
         setjsonData({coins:jsonFormat});
     };

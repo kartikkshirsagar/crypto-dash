@@ -1,4 +1,4 @@
-import React, { useState,useRef } from 'react';
+import React, { useState } from 'react';
 import Appbar from './app-bar';
 import CoinData from './coin-data';
 import UseAutocomplete from './autocomplete';
