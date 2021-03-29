@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import "./coin-data.css";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -10,6 +10,12 @@ import Graph from "./graph";
 import Button from "@material-ui/core/Button";
 
 const CoinData = (props) => {
+
+
+  useEffect(() => {
+
+  },[props.currency])
+
   const [displayGraph, setdisplayGraph] = useState(false);
   //   console.log(props);
   //   console.log(props.name);

@@ -6,26 +6,25 @@ import { ResponsiveLine } from "@nivo/line";
 // no chart will be rendered.
 // website examples showcase many properties,
 // you'll often use just a few of them.
-import React, { useState,useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 
+function generateURL(id, date, currency) {
+  const timeWiseUrl =
+    "https://api.nomics.com/v1/currencies/sparkline?key=7986da46df6f3c84a80abcb10f1f7c73&convert=" +
+    currency +
+    "&ids=" +
+    id +
+    "&start=2020-04-14T00%3A00%3A00Z&end=" +
+    date;
 
-
-
-
-
-function generateURL(id,date,currency){
-    const timeWiseUrl ="https://api.nomics.com/v1/currencies/sparkline?key=7986da46df6f3c84a80abcb10f1f7c73&convert="+currency+"&ids="+ id+"&start=2020-04-14T00%3A00%3A00Z&end=" + date;
-
-    return timeWiseUrl;
+  return timeWiseUrl;
 }
 
- 
-
-const MyResponsiveLine = ({dataset}) => (
+const MyResponsiveLine = ({ dataset }) => (
   <ResponsiveLine
     data={dataset}
     margin={{ top: 50, right: 110, bottom: 50, left: 60 }}
-    xScale={{type: "time" ,format:"%Y-%m-%d"}}
+    xScale={{ type: "time", format: "%Y-%m-%d" }}
     // xScale={{type:"point"}}
     yScale={{
       type: "linear",
@@ -33,7 +32,7 @@ const MyResponsiveLine = ({dataset}) => (
       max: "auto",
       stacked: true,
       reverse: false,
-      format:" >-s",
+      format: " >-s",
     }}
     xFormat="time:%Y-%m-%d"
     yFormat=" >-s"
@@ -47,8 +46,7 @@ const MyResponsiveLine = ({dataset}) => (
       legend: "Time",
       legendOffset: 36,
       legendPosition: "middle",
-      format:"%Y-%m-%d"
-
+      format: "%Y-%m-%d",
     }}
     axisLeft={{
       orient: "left",
@@ -96,46 +94,47 @@ const MyResponsiveLine = ({dataset}) => (
   />
 );
 
-
-
 const Graph = (props) => {
+  const [timeData, setTimeData] = useState([]);
 
-    const [timeData,setTimeData] = useState([]) 
-    
-    const APIcall = async () => {
-        const date = new Date().toISOString()
-        const _response = await fetch(generateURL(props.id,date,props.currency))
-        .then(response=>response.json())
-        .then(jsondata=> {
-            let requiredData = [{
-                id: jsondata[0]["currency"],
-                color: "hsl(342, 70%, 50%)",
-                data : jsondata[0].timestamps.map(
-                    (timestamp,index) => {
-                        // let _date = new Date(timestamp);
-                        //gets yyyy-mm-dd
-                        // const _day = String("0" + _date.getDate()).slice(-2);
-                        // const _month = String("0" + (_date.getMonth()+1)).slice(-2);
-                        // const _year = _date.getFullYear();
-                        
-                        return {
-                            x:(timestamp+"").slice(0,10),
-                            // x:_year+"-"+_month+"-"+_day,
-                            y:Math.round(jsondata[0].prices[index])
-                        }
-                    }
-                )
-            }];
-            console.log(requiredData);
-            setTimeData(requiredData);
-        });
-    }
-    
-    useEffect(()=>{
-        APIcall();
-    },[props.currency])
+  const APIcall = async () => {
+    const date = new Date().toISOString();
+    let _response;
+    do {
+      _response = await fetch(generateURL(props.id, date, props.currency));
+      console.log(_response.status + "graph");
+    } while (_response.status != 200);
 
-    return <MyResponsiveLine dataset={timeData} />;
+    const response = await _response.json().then((jsondata) => {
+      let requiredData = [
+        {
+          id: jsondata[0]["currency"],
+          color: "hsl(342, 70%, 50%)",
+          data: jsondata[0].timestamps.map((timestamp, index) => {
+            // let _date = new Date(timestamp);
+            //gets yyyy-mm-dd
+            // const _day = String("0" + _date.getDate()).slice(-2);
+            // const _month = String("0" + (_date.getMonth()+1)).slice(-2);
+            // const _year = _date.getFullYear();
+
+            return {
+              x: (timestamp + "").slice(0, 10),
+              // x:_year+"-"+_month+"-"+_day,
+              y: jsondata[0].prices[index],
+            };
+          }),
+        },
+      ];
+      console.log(requiredData);
+      setTimeData(requiredData);
+    });
+  };
+
+  useEffect(() => {
+    APIcall();
+  }, [props.currency]);
+
+  return <MyResponsiveLine dataset={timeData} />;
 };
 
 export default Graph;

@@ -1,55 +1,59 @@
 /* eslint-disable no-use-before-define */
-import React,{ useState,useRef,useEffect} from 'react';
-import TextField from '@material-ui/core/TextField';
-import Autocomplete from '@material-ui/lab/Autocomplete';
-import currencies from './currencies';
-import CoinData from './coin-data';
-import coinNames from '../currency';
+import React, { useState, useRef, useEffect } from "react";
+import TextField from "@material-ui/core/TextField";
+import Autocomplete from "@material-ui/lab/Autocomplete";
+import currencies from "./currencies";
+import CoinData from "./coin-data";
+import coinNames from "../currency";
 import "bootstrap/dist/css/bootstrap.min.css";
 
-
-
-var query_part1 ="https://api.nomics.com/v1/currencies/ticker?key=7986da46df6f3c84a80abcb10f1f7c73&ids=" ;
-var query_part2="&interval=1d&convert=";
+var query_part1 =
+  "https://api.nomics.com/v1/currencies/ticker?key=7986da46df6f3c84a80abcb10f1f7c73&ids=";
+var query_part2 = "&interval=1d&convert=";
 
 export default function FreeSolo(props) {
-  const [jsonData,setjsonData] = useState(null);
-  const [query,setQuery] =useState('bitcoin');
+  const [jsonData, setjsonData] = useState(null);
+  const [query, setQuery] = useState("bitcoin");
 
-  const valueRef = useRef('') //creating a refernce for TextField Component
+  const valueRef = useRef(""); //creating a refernce for TextField Component
 
   const QueryAPIcall = async (url) => {
-    const response = await fetch(url);
-    
+    let response;
+    do {
+      response = await fetch(url);
+      console.log(response.status + "AutoComplete");
+    } while (response.status != 200);
+
     const data = await response.json();
 
-    if(data!=null && data[0]!=null){
-    console.log(response);
-    console.log(data);
-    setjsonData(data[0]);
-    console.log(data[0].id);
+    if (data != null && data[0] != null) {
+      // console.log(response);
+      // console.log(data);
+      setjsonData(data[0]);
+      // console.log(data[0].id);
     }
-
   };
 
-  const runAPI= ()=>{
-    console.log(valueRef.current.value.toLowerCase());
-    console.log(coinNames[valueRef.current.value.toLowerCase()]);
-    var url=query_part1+coinNames[valueRef.current.value.toLowerCase()]+query_part2+props.currency;
+  const runAPI = () => {
+    // console.log(valueRef.current.value.toLowerCase());
+    // console.log(coinNames[valueRef.current.value.toLowerCase()]);
+    var url =
+      query_part1 +
+      coinNames[valueRef.current.value.toLowerCase()] +
+      query_part2 +
+      props.currency;
     QueryAPIcall(url);
-    
+    console.log("api called");
   };
 
-  useEffect(()=>{
-    if(valueRef.current.value!='')
-    {
+  useEffect(() => {
+    if (valueRef.current.value != "") {
       runAPI();
     }
-  },[props.currency]);
+  }, [props.currency]);
 
-  
   return (
-    <div >
+    <div>
       <Autocomplete
         freeSolo
         id="free-solo-2-demo"
@@ -61,19 +65,25 @@ export default function FreeSolo(props) {
             label="Enter a cryptocurrency"
             margin="normal"
             variant="outlined"
-            InputProps={{ ...params.InputProps, type: 'search' }}
-            inputRef={valueRef} 
+            InputProps={{ ...params.InputProps, type: "search" }}
+            inputRef={valueRef}
           />
         )}
       />
-      <input type='button' value='Search' onClick={()=>{runAPI()}}/>
-      <div className='mb-3'></div>
-      { jsonData!=null &&
-            <CoinData key={jsonData.id} item={jsonData} currency={props.currency}/>}
+      <input
+        type="button"
+        value="Search"
+        onClick={() => {
+          runAPI();
+        }}
+      />
+      <div className="mb-3"></div>
+      {jsonData != null && (
+        <CoinData key={jsonData.id} item={jsonData} currency={props.currency} />
+      )}
     </div>
   );
 }
-
 
 const top100Films = currencies;
 // const top100Films = [
