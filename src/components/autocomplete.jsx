@@ -22,7 +22,7 @@ export default function FreeSolo(props) {
     do {
       response = await fetch(url);
       console.log(response.status + "AutoComplete");
-    } while (response.status != 200);
+    } while (response.status == 429);
 
     const data = await response.json();
 

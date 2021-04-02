@@ -103,7 +103,7 @@ const Graph = (props) => {
     do {
       _response = await fetch(generateURL(props.id, date, props.currency));
       console.log(_response.status + "graph");
-    } while (_response.status != 200);
+    } while (_response.status == 429);
 
     const response = await _response.json().then((jsondata) => {
       let requiredData = [
