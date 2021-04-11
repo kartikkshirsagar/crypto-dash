@@ -1,0 +1,7 @@
+.nav-choice{
+    position:absolute;
+    right:0px;
+    font-size: 15px;
+    z-index: 2;
+    top:5px;
+}

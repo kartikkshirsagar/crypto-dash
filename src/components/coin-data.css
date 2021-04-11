@@ -1,0 +1,21 @@
+.coin-data{
+    border-style: solid;
+}
+
+.pecent-data td{
+    color:green
+}
+
+.percent-decrease{
+    color: red;
+}
+
+.percent-increase{
+    color: green;
+}
+
+.coin-logo{
+    border-radius: 20px;
+    height:20px;
+    width:20px;
+}
